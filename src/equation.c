@@ -5,10 +5,12 @@
 // function calculating one individual starts with begin index in population and end with end index
 float equation(const char* pop, const size_t begin, const size_t end){
 	size_t fit_case = 10;
-	float x[10] = {1, 2, 3, 4, 5, 6, 6, 8, 9, 10};
+	//float x[10] = {1, 2, 3, 4, 5, 6, 6, 8, 9, 10};
+	float x[3] = {1, 2, 3};
 	
 	// Actuall value that need to be found. 
-	float y[10] = {4, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+	//float y[10] = {4, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+	float y[3] = {3,4,5}; // = x + 2 (x = 1, 2, ,3)
 
 	float* fit_arr = (float*) malloc(sizeof(float)*(fit_case));
 	for(size_t i = 0; i != fit_case; i++){
@@ -70,6 +72,8 @@ float compute_tree_nodes(const char n, const float a, const float b){
 			else{
 				return a / b;
 			};
+		default:
+			return a;
 	}
 }
 
