@@ -10,7 +10,7 @@ APP_DIR = ./app
 
 all: $(BUILD_DIR)/$(EXEC)
 valgrind: $(BUILD_DIR)/$(EXEC)
-	valgrind $(BUILD_DIR)/$(EXEC)
+	valgrind --leak-check=full $(BUILD_DIR)/$(EXEC) 
 
 $(BUILD_DIR)/$(EXEC): $(BUILD_DIR)/main.o $(BUILD_DIR)/population.o $(BUILD_DIR)/terminal.o $(BUILD_DIR)/function.o $(BUILD_DIR)/fitness.o $(BUILD_DIR)/equation.o $(BUILD_DIR)/genetic_operation.o
 	$(CC) -o $@ $^

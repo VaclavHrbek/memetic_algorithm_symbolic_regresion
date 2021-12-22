@@ -12,9 +12,9 @@ char random_function(){
 		case 3:
 			return 'd'; // division
 		case 4:
-			return '/'; // pass left child
+			return 'l'; // pass left child
 		case 5:
-			return '\\'; // pass right child
+			return 'r'; // pass right child
 		default:
 			return 'a';
 	}	

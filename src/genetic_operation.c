@@ -8,18 +8,15 @@ char* genetic_operations(const char* pop, const float* fit, const size_t depth_i
 	for(size_t i = 0; i != size_pop; i++){
 		float r = (float)(rand() % 10) / 10;
 		if(r < mut_rate){
-			puts("mutation");
 			const char* ind = turnament_selection(pop, fit, size_pop, num_of_nodes);
 			mutation(ind, &new_population[i * num_of_nodes], num_of_nodes);
 		}
 		else if(r > mut_rate && r < cross_rate){
-			puts("crossouver");
 			const char* ind_1 = turnament_selection(pop, fit, size_pop, num_of_nodes);
 			const char* ind_2 = turnament_selection(pop, fit, size_pop, num_of_nodes);
 			crossover(ind_1, ind_2, &new_population[i * num_of_nodes], num_of_nodes);
 		}
 		else{
-			puts("copy");
 			const char* ind = turnament_selection(pop, fit, size_pop, num_of_nodes);
 			copy(ind, &new_population[i * num_of_nodes], num_of_nodes);
 		}

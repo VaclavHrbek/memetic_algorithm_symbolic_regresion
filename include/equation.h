@@ -2,13 +2,13 @@
 
 #include <stdlib.h>
 
-float equation(const char* pop, const size_t begin, const size_t end);
+float equation(const char* ind, const size_t offset);
 
-void fill_values(float* arr, const float x, const char* pop,
-		const size_t begin, const size_t end);
+void fill_values(float* arr, const float x, const char* ind,
+		const size_t offset);
 
-void compute_values(float* arr, const size_t size_arr, const char* pop,
-		const size_t begin);
+void compute_values(float* arr, const size_t size_arr, const char* ind,
+		const size_t offset);
 
 float compute_tree_nodes(const char n, const float a, const float b);
 
