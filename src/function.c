@@ -1,4 +1,4 @@
-#include <function.h>
+#include "function.h"
 
 char random_function(){
 	int r = rand() % 6;	

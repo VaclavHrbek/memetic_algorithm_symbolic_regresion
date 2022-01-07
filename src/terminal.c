@@ -1,4 +1,4 @@
-#include <terminal.h>
+#include "terminal.h"
 
 char random_terminal(){
 	int r = rand() % 2;

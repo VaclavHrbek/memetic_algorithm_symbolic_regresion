@@ -3,16 +3,16 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-#include <terminal.h>
-#include <function.h>
+#include "terminal.h"
+#include "function.h"
+#include "data_structures.h"
 
 // TODO In some future refactoring try use currying. This function has to 
 // manny argument. It will be better (more suitable) it has only one.
-char* genetic_operations(const char* pop, const float* fit, const size_t depth_ind, 
-		const size_t size_pop, const float mut_rate, const float cross_rate);
 
-const char* turnament_selection(const char* pop, const float* fit, 
-		const size_t size_pop, const size_t num_of_nodes);
+Population genetic_operations(const Population* pop, const float mut_rate, const float cross_rate);
+
+const char* turnament_selection(const Population *pop);
 
 void mutation(const char* ind, char* pos, const size_t num_of_nodes);
 

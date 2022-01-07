@@ -1,4 +1,4 @@
-#include <fitness.h>
+#include "fitness.h"
 
 
 void calculate_fitness(Population* pop){

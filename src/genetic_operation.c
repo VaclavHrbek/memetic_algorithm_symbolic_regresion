@@ -1,27 +1,24 @@
-#include <genetic_operation.h>
-#include <stdio.h>
+#include "genetic_operation.h"
 
-char* genetic_operations(const char* pop, const float* fit, const size_t depth_ind, 
-		const size_t size_pop, const float mut_rate, const float cross_rate){
-	size_t num_of_nodes = (2u << (depth_ind - 1u)) - 1u;
-	char* new_population = (char*) malloc(size_pop * num_of_nodes * sizeof(char));
-	for(size_t i = 0; i != size_pop; i++){
+Population genetic_operations(const Population* pop, const float mut_rate, const float cross_rate){
+	Population new_pop = { .size_pop = SIZE_OF_POPULAION, .num_of_nodes_ind = NUMBER_OF_NODES_IND};
+	for(size_t i = 0; i != pop->size_pop; i++){
 		float r = (float)(rand() % 10) / 10;
 		if(r < mut_rate){
-			const char* ind = turnament_selection(pop, fit, size_pop, num_of_nodes);
-			mutation(ind, &new_population[i * num_of_nodes], num_of_nodes);
+			const char* ind = turnament_selection(pop);
+			mutation(ind, new_pop.arr[i], pop->num_of_nodes_ind);
 		}
 		else if(r > mut_rate && r < cross_rate){
-			const char* ind_1 = turnament_selection(pop, fit, size_pop, num_of_nodes);
-			const char* ind_2 = turnament_selection(pop, fit, size_pop, num_of_nodes);
-			crossover(ind_1, ind_2, &new_population[i * num_of_nodes], num_of_nodes);
+			const char* ind_1 = turnament_selection(pop);
+			const char* ind_2 = turnament_selection(pop);
+			crossover(ind_1, ind_2, new_pop.arr[i], pop->num_of_nodes_ind);
 		}
 		else{
-			const char* ind = turnament_selection(pop, fit, size_pop, num_of_nodes);
-			copy(ind, &new_population[i * num_of_nodes], num_of_nodes);
+			const char* ind = turnament_selection(pop);
+			copy(ind, new_pop.arr[i], pop->num_of_nodes_ind);
 		}
 	}
-	return new_population;
+	return new_pop;
 
 }
 
@@ -62,14 +59,13 @@ void mutation(const char* ind, char* pos, const size_t num_of_nodes){
 }
 
 // return two individuals in current population
-const char* turnament_selection(const char* pop, const float* fit, 
-		const size_t size_pop, const size_t num_of_nodes){
-	size_t index_1 = (size_t)(rand()) % size_pop;
-	size_t index_2 = (size_t)(rand()) % size_pop;
-	if(fit[index_1] < fit[index_2]){
-		return &pop[index_1 * num_of_nodes];
+const char* turnament_selection(const Population* pop){
+	size_t index_1 = (size_t)(rand()) % pop->size_pop;
+	size_t index_2 = (size_t)(rand()) % pop->size_pop;
+	if(pop->fitness[index_1] < pop->fitness[index_2]){
+		return pop->arr[index_1];
 	}
 	else{
-		return &pop[index_2 * num_of_nodes];
+		return pop->arr[index_2];
 	}
 }
