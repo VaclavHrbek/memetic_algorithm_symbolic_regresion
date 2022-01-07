@@ -20,7 +20,7 @@ $(BUILD_DIR)/main.o: $(APP_DIR)/main.c $(DEP_DIR)/population.h | $(BUILD_DIR)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(BUILD_DIR)/population.o: $(SRC_DIR)/population.c \
-							$(DEP_DIR)/terminal.h $(DEP_DIR)/function.h $(DEP_DIR)/population.h
+							$(DEP_DIR)/terminal.h $(DEP_DIR)/function.h $(DEP_DIR)/population.h $(DEP_DIR)/data_structures.h
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(BUILD_DIR)/terminal.o: $(SRC_DIR)/terminal.c $(DEP_DIR)/terminal.h
