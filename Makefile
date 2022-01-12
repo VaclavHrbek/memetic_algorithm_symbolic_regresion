@@ -1,55 +1,57 @@
-CC = gcc
-CFLAGS = -I$(DEP_DIR) -Wall -Wextra -std=c17 -Wpedantic -Wconversion -Wunused -g
+SHELL = /bin/sh
+
+.SUFFIXES:
+
+file_dir = .
+build_dir = $(file_dir)/build
+src_dir = $(file_dir)/src
+build_sub_dirs = $(patsubst $(src_dir)/%, %, $(wildcard $(src_dir)/*))
+c_src_dir = $(file_dir)/src/c
+#openacc_src_dir = $(file_dir)/src/openacc
+cuda_src_dir = $(file_dir)/src/cuda
+app_dir = $(file_dir)/app
+include_c_dir = $(file_dir)/include
+
+c_src_files := $(wildcard $(c_src_dir)/*.c)
+app_src_files := $(wildcard $(app_dir)/*.c)
+#openacc_src_files := $(wildcard $(openacc_src_dir)/*.c) 
+cuda_src_files := $(wildcard $(cuda_src_dir)/*.cu)
+
+cuda_obj_files := $(patsubst %.cu, %.o ,$(patsubst $(src_dir)/%, $(build_dir)/%, $(cuda_src_files)))
+
+c_obj_files := $(patsubst %.c, %.o ,$(patsubst $(src_dir)/%, $(build_dir)/%, $(c_src_files)))
+c_obj_files += $(patsubst $(app_dir)/%.c, $(build_dir)/%.o, $(app_src_files))
+
+
+CC = gcc 
+CFLAGS = -I$(include_c_dir) -O
 NVCC = nvcc
+NVCFLAGS = -I$(include_c_dir) 
+LFLAGS = -L/usr/local/cuda/lib64 -lcudart -lstdc++
 
-BUILD_DIR = ./build
-EXEC = main
+all: $(c_obj_files)  main
 
-SRC_DIR = ./src
-DEP_DIR = ./include
-APP_DIR = ./app
+$(c_obj_files): | $(build_dir)
 
-all: $(BUILD_DIR)/$(EXEC)
+$(build_dir)/c/%.o: $(c_src_dir)/%.c
+	$(CC) -c $(CFLAGS) $< -o $@
+	
+$(build_dir)/%.o: $(app_dir)/%.c
+	$(CC) -c $(CFLAGS) $< -o $@
 
-valgrind: $(BUILD_DIR)/$(EXEC)
-	valgrind --leak-check=full $(BUILD_DIR)/$(EXEC) 
+$(build_dir)/cuda/%.o: $(cuda_src_dir)/%.cu
+	$(NVCC) -c $(NVCFLAGS) $< -o $@
 
-$(BUILD_DIR)/$(EXEC): $(BUILD_DIR)/main.o $(BUILD_DIR)/population.o $(BUILD_DIR)/terminal.o \
-	$(BUILD_DIR)/function.o $(BUILD_DIR)/fitness.o $(BUILD_DIR)/equation.o $(BUILD_DIR)/genetic_operation.o $(BUILD_DIR)/optimization.o
-	$(CC) -o $@ $^
+main: $(c_obj_files) $(cuda_obj_files)
+	$(CC) $^ -o $(build_dir)/$@ $(LFLAGS)
 
-$(BUILD_DIR)/main.o: $(APP_DIR)/main.c $(DEP_DIR)/population.h | $(BUILD_DIR)
-	$(CC) -c -o $@ $< $(CFLAGS)
+$(build_dir):
+	$(foreach i, $(build_sub_dirs), $(shell mkdir -p  $(build_dir)/$(i)))
 
-$(BUILD_DIR)/population.o: $(SRC_DIR)/population.c \
-							$(DEP_DIR)/terminal.h $(DEP_DIR)/function.h $(DEP_DIR)/population.h $(DEP_DIR)/data_structures.h
-	$(CC) -c -o $@ $< $(CFLAGS)
+.PHONY:
+	clean
 
-$(BUILD_DIR)/terminal.o: $(SRC_DIR)/terminal.c $(DEP_DIR)/terminal.h
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-$(BUILD_DIR)/function.o: $(SRC_DIR)/function.c $(DEP_DIR)/function.h
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-$(BUILD_DIR)/fitness.o: $(SRC_DIR)/fitness.c $(DEP_DIR)/fitness.h
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-$(BUILD_DIR)/equation.o: $(SRC_DIR)/equation.c $(DEP_DIR)/equation.h
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-$(BUILD_DIR)/genetic_operation.o: $(SRC_DIR)/genetic_operation.c $(DEP_DIR)/genetic_operation.h
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-$(BUILD_DIR)/optimization.o: $(SRC_DIR)/optimization.c $(DEP_DIR)/optimization.h
-	$(CC) -c -o $@ $< $(CFLAGS)
-
-
-print: 
-	@echo $($CFLAGS)
-
-$(BUILD_DIR):
-	mkdir -p $@
-
-.PHONY: clean
 clean:
-	@rm -rf build
+	rm -rf $(file_dir)/build
+
+

@@ -4,9 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "data_structures.h"
-#include "terminal.h"
-#include "function.h"
+#include "c/data_structures.h"
+#include "c/terminal.h"
+#include "c/function.h"
 
 void create_population(Population* pop);
 

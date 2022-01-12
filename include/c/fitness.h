@@ -3,8 +3,8 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-#include "equation.h"
-#include "data_structures.h"
+#include "c/equation.h"
+#include "c/data_structures.h"
 
 void calculate_fitness(Population* pop);
 

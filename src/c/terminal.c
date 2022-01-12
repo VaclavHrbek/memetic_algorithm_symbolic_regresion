@@ -1,4 +1,4 @@
-#include "terminal.h"
+#include "c/terminal.h"
 
 char decide_value(int val);
 

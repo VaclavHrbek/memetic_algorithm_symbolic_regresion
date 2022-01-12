@@ -1,4 +1,4 @@
-#include "equation.h"
+#include "c/equation.h"
 
 // function calculating one individual starts with begin index in population and end with end index
 float equation(const char* ind, const size_t offset){

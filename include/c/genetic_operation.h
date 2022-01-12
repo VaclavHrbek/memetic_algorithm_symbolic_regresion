@@ -3,9 +3,9 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-#include "terminal.h"
-#include "function.h"
-#include "data_structures.h"
+#include "c/terminal.h"
+#include "c/function.h"
+#include "c/data_structures.h"
 
 // TODO In some future refactoring try use currying. This function has to 
 // manny argument. It will be better (more suitable) it has only one.

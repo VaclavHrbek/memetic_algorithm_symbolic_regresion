@@ -1,4 +1,4 @@
-#include "genetic_operation.h"
+#include "c/genetic_operation.h"
 
 Population genetic_operations(const Population* pop, const float mut_rate, const float cross_rate){
 	Population new_pop = { .size_pop = SIZE_OF_POPULAION, .num_of_nodes_ind = NUMBER_OF_NODES_IND};

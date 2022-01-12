@@ -1,4 +1,4 @@
-#include "population.h"
+#include "c/population.h"
 
 void create_population(Population* pop){
 	for(size_t i = 0; i != pop->size_pop; ++i){
