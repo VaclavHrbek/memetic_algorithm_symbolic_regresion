@@ -16,9 +16,8 @@ bool final_solution(const float* arr, size_t size){
 	return false;
 }
 
-
 size_t get_index_of_best(const float* arr, const size_t size){
-	float best = 1000000;
+	float best = FLT_MAX;
 	size_t best_index = 0;
 	for(size_t i = 0; i != size; i++){
 		if(arr[i] < best){
