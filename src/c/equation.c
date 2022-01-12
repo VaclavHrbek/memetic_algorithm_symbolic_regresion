@@ -2,25 +2,27 @@
 
 // function calculating one individual starts with begin index in population and end with end index
 float equation(const char* ind, const size_t offset){
-	// don't forget to change the fit_case number
-	size_t fit_case = 3;
-	float x[3] = {1, 2, 3};
-	
-	// Actuall value that need to be found. 
-	float y[3] = {3,4,5}; // = x + 2 (x = 1, 2, ,3)
-	//float y[3] = {1,2,3}; // = x (x = 1, 2, ,3)
-
-	float* fit_arr = (float*) malloc(sizeof(float)*(fit_case));
-	for(size_t i = 0; i != fit_case; i++){
+	const Data data = load_data();
+	float* fit_arr = (float*) malloc(sizeof(float)*(data.size));
+	for(size_t i = 0; i != data.size; i++){
 		float* arr = (float*) malloc(sizeof(float)*(offset));
-		fill_values(arr, x[i], ind, offset);
+		fill_values(arr, data.x[i], ind, offset);
 		compute_values(arr, ind, offset); 
 		fit_arr[i] = arr[0];
 		free(arr);
 	}
-	float fitness = sum_square_roots_of_deviation(fit_arr, y, fit_case);
+	float fitness = sum_square_roots_of_deviation(fit_arr, data.y, data.size);
 	free(fit_arr);
 	return fitness;
+}
+
+const Data load_data(){
+	Data data = {
+		{1, 2, 3},	// x
+		{1, 2, 3},	// y
+		3			//size of the array
+	};
+	return data;
 }
 
 void fill_values(float* arr, const float x, const char* ind, const size_t offset){
@@ -48,7 +50,6 @@ void compute_values(float* arr,  const char* ind,
 		arr[i] = compute_tree_nodes(parent, arr[(i*2)+1], arr[(i*2)+2]);
 	}while(i != 0);
 }
-
 
 float compute_tree_nodes(const char n, const float a, const float b){
 	float out = 0;

@@ -2,6 +2,14 @@
 
 #include <stdlib.h>
 
+typedef struct data {
+	float x[3];
+	float y[3];
+	size_t size;
+} Data;
+
+const Data load_data();
+
 float equation(const char* ind, const size_t offset);
 
 void fill_values(float* arr, const float x, const char* ind,
