@@ -14,7 +14,7 @@ float equation(const char* ind, const size_t offset){
 	for(size_t i = 0; i != fit_case; i++){
 		float* arr = (float*) malloc(sizeof(float)*(offset));
 		fill_values(arr, x[i], ind, offset);
-		compute_values(arr, offset, ind, offset); 
+		compute_values(arr, ind, offset); 
 		fit_arr[i] = arr[0];
 		free(arr);
 	}
@@ -30,7 +30,8 @@ void fill_values(float* arr, const float x, const char* ind, const size_t offset
 		}
 		else if((ind[i] == '0') || (ind[i] == '1') || (ind[i] == '2') || (ind[i] == '3') || (ind[i] == '4') || (ind[i] == '5') || (ind[i] == '6') || (ind[i] == '7') || (ind[i] == '8') || (ind[i] == '9')){
 			char tmp = ind[i];
-			arr[i] = atof(&tmp);
+			// This is safe explicit conversion as long as tmp is up to 32 bit
+			arr[i] = (float) atof(&tmp);
 		}
 		else{
 			arr[i] = 0;
@@ -38,13 +39,14 @@ void fill_values(float* arr, const float x, const char* ind, const size_t offset
 	}
 }
 
-void compute_values(float* arr, const size_t size_arr, const char* ind,
+void compute_values(float* arr,  const char* ind,
 		const size_t offset){
-	for(size_t i = (offset / 2) - 1; i != -1; i--){
+	size_t i = (offset / 2);
+	do{
+		--i;
 		const char parent = ind[i];
-
 		arr[i] = compute_tree_nodes(parent, arr[(i*2)+1], arr[(i*2)+2]);
-	}
+	}while(i != 0);
 }
 
 

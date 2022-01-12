@@ -9,7 +9,9 @@
 #define MUTAION_RATE (float) 0.1
 #define CROSSOUVER_RATE (float) 0.7
 
-#define NUM_OF_GENERATION (size_t) 5000
+#define NUM_OF_GENERATION (size_t) 500
+
+#define NUM_OF_OPTIMIZATION (size_t) 2
 
 struct population {
 		size_t num_of_nodes_ind;

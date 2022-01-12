@@ -6,6 +6,7 @@
 #include "fitness.h"
 #include "genetic_operation.h"
 
+#include "optimization.h"
 
 int main(void){
 	srand((unsigned int)time(NULL));	
@@ -27,7 +28,9 @@ int main(void){
 
 		Population new_pop = { .size_pop = SIZE_OF_POPULAION, .num_of_nodes_ind = NUMBER_OF_NODES_IND};
 		new_pop = genetic_operations(&pop, MUTAION_RATE, CROSSOUVER_RATE);
+
 		pop = new_pop;
+		
 	}
 	return 0;
 }
