@@ -9,9 +9,9 @@
 
 #ifdef __cplusplus
 extern "C" {
-
-
+#endif
 void cuda_calculate_fitness(Population* pop);
+#ifdef __cplusplus
 }
 #endif
 
