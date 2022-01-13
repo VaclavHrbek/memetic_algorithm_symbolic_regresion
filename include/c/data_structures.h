@@ -21,3 +21,9 @@ struct population {
 };
 
 typedef struct population Population;
+
+typedef struct data {
+	float x[3];
+	float y[3];
+	size_t size;
+} Data;

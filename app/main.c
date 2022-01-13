@@ -4,6 +4,7 @@
 #include "c/data_structures.h"
 #include "c/population.h"
 #include "c/fitness.h"
+#include "cuda/fitness.cuh"
 #include "c/genetic_operation.h"
 
 int main(void){
@@ -13,7 +14,7 @@ int main(void){
 	create_population(&pop);
 
 	for(size_t i = 0; i != NUM_OF_GENERATION; ++i){
-		calculate_fitness(&pop);
+		cuda_calculate_fitness(&pop);
 
 		if(final_solution(pop.fitness, pop.size_pop) == true){
 			printf("Found best solution: \n");

@@ -1,6 +1,5 @@
 #include "c/fitness.h"
 
-
 void calculate_fitness(Population* pop){
 	for(size_t i = 0; i != pop->size_pop; ++i){
 		pop->fitness[i] = equation(pop->arr[i], pop->num_of_nodes_ind);

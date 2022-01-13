@@ -3,10 +3,11 @@ SHELL = /bin/sh
 .SUFFIXES:
 
 CC = gcc 
-CFLAGS = -I$(include_dir) -O
+CFLAGS = -I$(include_dir) -O -c
 LDFLAGS = -L/usr/local/cuda/lib64 -lcudart -lstdc++
 NVCC = nvcc
-NVCFLAGS = -I$(include_dir) 
+NVCFLAGS = -I$(include_dir) -O0 --gpu-architecture=sm_52 -dc
+NVCLDFLAGS = -dlink
 
 file_dir = .
 build_dir = $(file_dir)/build
@@ -39,15 +40,19 @@ executable: $(c_obj_files)  main
 $(c_obj_files): | $(build_dir)
 
 $(build_dir)/c/%.o: $(c_src_dir)/%.c
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 	
 $(build_dir)/%.o: $(app_dir)/%.c
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 
 $(build_dir)/cuda/%.o: $(cuda_src_dir)/%.cu
-	$(NVCC) -c $(NVCFLAGS) $< -o $@
+	$(NVCC) $(NVCFLAGS) $< -o $@
 
-main: $(c_obj_files) $(cuda_obj_files)
+$(build_dir)/link_device_code.o: $(cuda_obj_files)
+	$(NVCC) $(NVCLDFLAGS) $^ -o $@
+
+
+main: $(c_obj_files) $(cuda_obj_files) $(build_dir)/link_device_code.o
 	$(CC) $^ -o $(build_dir)/$@ $(LDFLAGS)
 
 $(build_dir):

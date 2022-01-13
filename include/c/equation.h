@@ -2,11 +2,7 @@
 
 #include <stdlib.h>
 
-typedef struct data {
-	float x[3];
-	float y[3];
-	size_t size;
-} Data;
+#include "c/data_structures.h"
 
 const Data load_data();
 
