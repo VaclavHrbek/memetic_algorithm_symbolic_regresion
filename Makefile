@@ -31,7 +31,7 @@ c_obj_files += $(patsubst $(app_dir)/%.c, $(build_dir)/%.o, $(app_src_files))
 
 all: executable
 
-debug: CFLAGS += -g
+debug: CFLAGS += -g -O0
 debug: NVCFLAGS += -g -G
 debug: executable
 
