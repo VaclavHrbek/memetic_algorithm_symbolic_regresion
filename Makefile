@@ -35,6 +35,10 @@ debug: CFLAGS += -g -O0
 debug: NVCFLAGS += -g -G
 debug: executable
 
+coverage: CFLAGS += -fprofile-arcs -ftest-coverage
+coverage: LDFLAGS += -lgcov --coverage
+coverage: executable
+
 executable: $(c_obj_files)  main
 
 $(c_obj_files): | $(build_dir)
