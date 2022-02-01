@@ -19,7 +19,7 @@ float equation(const char* ind, const size_t offset){
 const Data load_data(){
 	Data data = {
 		{1, 2, 3},	// x
-		{1, 2, 3},	// y
+		{2, 3, 4},	// y
 		3			//size of the array
 	};
 	return data;
