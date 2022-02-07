@@ -1,16 +1,18 @@
 #include "c/population.h"
 
-void create_population(Population* pop){
-	for(size_t i = 0; i != pop->size_pop; ++i){
-		for(size_t a = 0; a != pop->num_of_nodes_ind; ++a){
-			if(a < (pop->num_of_nodes_ind / 2)){
-				pop->arr[i][a] = random_function();
+Population create_population(size_t size, size_t num_nodes_ind){
+	Population pop = { .size_pop = size, .num_of_nodes_ind = num_nodes_ind};
+	for(size_t i = 0; i != size; ++i){
+		for(size_t a = 0; a != num_nodes_ind; ++a){
+			if(a < (num_nodes_ind / 2)){
+				pop.arr[i][a] = random_function();
 			}
 			else{
-				pop->arr[i][a] = random_terminal();
+				pop.arr[i][a] = random_terminal();
 			}
 		}
 	}
+	return pop;
 }
 
 void print_population(const Population* pop){

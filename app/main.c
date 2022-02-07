@@ -11,8 +11,7 @@
 int main(void){
 	srand((unsigned int)time(NULL));	
 
-	Population pop = { .size_pop = SIZE_OF_POPULAION, .num_of_nodes_ind = NUMBER_OF_NODES_IND};
-	create_population(&pop);
+	Population pop = create_population(SIZE_OF_POPULAION, NUMBER_OF_NODES_IND);
 
 	for(size_t i = 0; i != NUM_OF_GENERATION; ++i){
 		printf("Generation: %ld \n", i);

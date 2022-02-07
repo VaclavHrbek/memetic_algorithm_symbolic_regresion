@@ -8,7 +8,7 @@
 #include "c/terminal.h"
 #include "c/function.h"
 
-void create_population(Population* pop);
+Population create_population(size_t size, size_t num_nodes_ind);
 
 void print_population(const Population* pop);
 
