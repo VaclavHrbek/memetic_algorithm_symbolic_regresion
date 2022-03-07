@@ -15,17 +15,18 @@ int main(void){
 
 	for(size_t i = 0; i != NUM_OF_GENERATION; ++i){
 		printf("Generation: %ld \n", i);
-		calculate_fitness(&pop);
+		cuda_calculate_fitness(&pop);
 
 		Population new_pop = optimize(pop);
 		if(final_solution(new_pop.fitness, new_pop.size_pop) == true){
-			printf("Found best solution using optimalization: \n");
+			printf("Found best solution using optimization: \n");
 			print_best_individual(&new_pop);
 			return 0;
 		}
 
 		new_pop = genetic_operations(&pop, MUTAION_RATE, CROSSOUVER_RATE);
 		calculate_fitness(&new_pop);
+
 		if(final_solution(new_pop.fitness, new_pop.size_pop) == true){
 			printf("Found best solution using genetic operation: \n");
 			print_best_individual(&new_pop);

@@ -14,14 +14,12 @@
 #define NUM_OF_OPTIMIZATION (size_t) 2
 #define SIZE_FOR_OPTIMIZATION (size_t) 2
 
-struct population {
+typedef struct population {
 		size_t num_of_nodes_ind;
 		size_t size_pop;
 		char arr[SIZE_OF_POPULAION][NUMBER_OF_NODES_IND];
 		float fitness[SIZE_OF_POPULAION];
-};
-
-typedef struct population Population;
+} Population;
 
 typedef struct data {
 	float x[3];

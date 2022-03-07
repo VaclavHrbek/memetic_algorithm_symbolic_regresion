@@ -9,6 +9,7 @@ void device_fill_values(float* arr, const float x, const char* ind, const size_t
 __device__
 void device_compute_values(float* arr,  const char* ind,
 		const size_t offset);
+
 // function calculating one individual starts with begin index in population and end with end index
 __device__
 float device_equation(const char* ind, const size_t offset){
