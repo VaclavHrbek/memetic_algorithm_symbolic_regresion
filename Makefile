@@ -39,6 +39,10 @@ coverage: CFLAGS += -fprofile-arcs -ftest-coverage
 coverage: LDFLAGS += -lgcov --coverage
 coverage: executable
 
+profile: CFLAGS += -pg -g
+profile: LDFLAGS += -pg
+profile: executable
+
 executable: $(c_obj_files)  main
 
 $(c_obj_files): | $(build_dir)
