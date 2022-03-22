@@ -7,7 +7,7 @@
 #include "c/fitness.h"
 #include "c/equation.h"
 #include "c/genetic_operation.h"
+#include "c/population.h"
 
 Population optimize(Population pop);
 
-bool optimize_ind(Population* pop, const size_t indx);

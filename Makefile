@@ -43,7 +43,7 @@ profile: CFLAGS += -pg -g
 profile: LDFLAGS += -pg
 profile: executable
 
-executable: $(c_obj_files)  main
+executable: $(c_obj_files) main
 
 $(c_obj_files): | $(build_dir)
 

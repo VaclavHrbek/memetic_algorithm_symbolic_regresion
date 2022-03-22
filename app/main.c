@@ -12,27 +12,33 @@ int main(void){
 	srand((unsigned int)time(NULL));	
 
 	Population pop = create_population(SIZE_OF_POPULAION, NUMBER_OF_NODES_IND);
+	calculate_fitness(&pop);
+	if(check_zero_fitness(&pop) == true){
+		printf("Found solution in initial population\n");
+		print_best_ind_from_population(&pop);
+		return 0;
+	};
 
 	for(size_t i = 0; i != NUM_OF_GENERATION; ++i){
 		printf("Generation: %ld \n", i);
-		cuda_calculate_fitness(&pop);
 
 		Population new_pop = optimize(pop);
-		if(final_solution(new_pop.fitness, new_pop.size_pop) == true){
-			printf("Found best solution using optimization: \n");
-			print_best_individual(&new_pop);
+		calculate_fitness(&new_pop);
+
+		if(check_zero_fitness(&new_pop) == true){
+			printf("Found solution after optimization\n");
+			print_best_ind_from_population(&new_pop);
 			return 0;
-		}
+		};
 
 		new_pop = genetic_operations(&pop, MUTAION_RATE, CROSSOUVER_RATE);
 		calculate_fitness(&new_pop);
 
-		if(final_solution(new_pop.fitness, new_pop.size_pop) == true){
-			printf("Found best solution using genetic operation: \n");
-			print_best_individual(&new_pop);
+		if(check_zero_fitness(&new_pop) == true){
+			printf("Found solution after genetic operation\n");
+			print_best_ind_from_population(&new_pop);
 			return 0;
-		}
-		print_best_individual(&pop);
+		};
 
 		pop = new_pop;
 	}

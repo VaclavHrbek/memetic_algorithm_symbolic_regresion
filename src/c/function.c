@@ -1,21 +1,31 @@
 #include "c/function.h"
 
-char random_function(){
+Node random_function(){
 	int r = rand() % 6;	
+	Node node;
+	node.type = FUNCTION;
+	node.flag = VAR;
 	switch(r){
 		case 0:
-			return 'a'; // addition
+			node.value.variable = ADD;
+			return node;
 		case 1:
-			return 's'; // substraction
+			node.value.variable = SUB;
+			return node;
 		case 2:
-			return 'm'; // multiplication
+			node.value.variable = MUL;
+			return node;
 		case 3:
-			return 'd'; // division
+			node.value.variable = DIV;
+			return node;
 		case 4:
-			return 'l'; // pass left child
+			node.value.variable = PLEFT;
+			return node;
 		case 5:
-			return 'r'; // pass right child
+			node.value.variable = PRIGHT;
+			return node;
 		default:
-			return 'a';
+			node.value.variable = ADD;
+			return node;
 	}	
 }

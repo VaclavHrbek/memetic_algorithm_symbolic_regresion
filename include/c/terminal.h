@@ -2,4 +2,6 @@
 
 #include <stdlib.h>
 
-char random_terminal();
+#include "c/data_structures.h"
+
+Node random_terminal();

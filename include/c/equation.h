@@ -6,14 +6,8 @@
 
 const Data load_data();
 
-float equation(const char* ind, const size_t offset);
+float equation(const Individual ind);
 
-void fill_values(float* arr, const float x, const char* ind,
-		const size_t offset);
+float compute_tree_node(const Node par, const Node ch_1, const Node ch_2);
 
-void compute_values(float* arr,  const char* ind,
-		const size_t offset);
-
-float compute_tree_nodes(const char n, const float a, const float b);
-
-float sum_square_roots_of_deviation(const float* fit_arr, const float* y,const size_t fit_case);
+float sum_square_roots_of_deviation(const float* arr, const float* y,const size_t fit_case);

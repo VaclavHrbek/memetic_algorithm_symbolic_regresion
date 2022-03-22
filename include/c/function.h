@@ -2,4 +2,6 @@
 
 #include <stdlib.h>
 
-char random_function();
+#include "c/data_structures.h"
+
+Node random_function();

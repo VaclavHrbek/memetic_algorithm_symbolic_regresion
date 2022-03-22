@@ -1,85 +1,83 @@
 #include "c/equation.h"
 
-// function calculating one individual starts with begin index in population and end with end index
-float equation(const char* ind, const size_t offset){
+float equation(const Individual ind){
 	const Data data = load_data();
-	float* fit_arr = (float*) malloc(sizeof(float)*(data.size));
+	float arr[data.size];
 	for(size_t i = 0; i != data.size; i++){
-		float* arr = (float*) malloc(sizeof(float)*(offset));
-		fill_values(arr, data.x[i], ind, offset);
-		compute_values(arr, ind, offset); 
-		fit_arr[i] = arr[0];
-		free(arr);
+		Individual new_ind = ind;
+		size_t a = new_ind.size;
+		do{
+			a--;
+			if(new_ind.node[a].flag == VAR && new_ind.node[a].type == TERMINAL){
+				new_ind.node[a].value.constant = data.x[i];
+				new_ind.node[a].flag = CONST;
+			} 
+			if(new_ind.node[a].flag == VAR && new_ind.node[a].type == FUNCTION){
+				new_ind.node[a].value.constant = compute_tree_node(new_ind.node[a], new_ind.node[(a*2)+1], new_ind.node[(a*2)+2]);
+				new_ind.node[a].flag = CONST;
+			}
+		}while(a != 0);
+		arr[i] = new_ind.node[0].value.constant;
 	}
-	float fitness = sum_square_roots_of_deviation(fit_arr, data.y, data.size);
-	free(fit_arr);
+	float fitness = sum_square_roots_of_deviation(arr, data.y, data.size);
 	return fitness;
 }
 
+//const Data sextic_data(){
+	//Data data = {
+
+
 const Data load_data(){
+	// sextic data are for: ax^6+bx^5+cx^4+dx^3+ex^2+fx+g=y
 	Data data = {
-		{1, 2, 3},	// x
-		{2, 3, 4},	// y
-		3			//size of the array
+		{-0.41, 0.39, 0.85, 0,96, -0.48, 0.14, 0.22, -0.99, -0.98, 0.36, -0.02, -0.39, -0.81, 0.34, 0.61, -0.82, 0.71, 0.57, -0.7, -0.35, -0.54},	// x
+		{5.171167694,
+		10.42874281,
+		20.99957889,
+		25.86848686,
+		4.950154277,
+		7.950243574,
+		8.612763786,
+		4.00059208,
+		4.002337267,
+		10.0592825,
+		6.881968474,
+		5.238101134,
+		4.171210286,
+		9.825937969,
+		14.06423886,
+		4.155420265,
+		16.46344058,
+		13.25658689,
+		4.379809,
+		5.377352641,
+		4.776197586},	// y
+		21			//size of the array
 	};
 	return data;
 }
 
-void fill_values(float* arr, const float x, const char* ind, const size_t offset){
-	for(size_t i = 0; i != offset; i++){
-		if(ind[i] == 'x'){
-			arr[i] = x;
-		}
-		else if((ind[i] == '0') || (ind[i] == '1') || (ind[i] == '2') || (ind[i] == '3') || (ind[i] == '4') || (ind[i] == '5') || (ind[i] == '6') || (ind[i] == '7') || (ind[i] == '8') || (ind[i] == '9')){
-			char tmp = ind[i];
-			// This is safe explicit conversion as long as tmp is up to 32 bit
-			arr[i] = (float) atof(&tmp);
-		}
-		else{
-			arr[i] = 0;
-		}
-	}
-}
-
-void compute_values(float* arr,  const char* ind,
-		const size_t offset){
-	size_t i = (offset / 2);
-	do{
-		--i;
-		const char parent = ind[i];
-		arr[i] = compute_tree_nodes(parent, arr[(i*2)+1], arr[(i*2)+2]);
-	}while(i != 0);
-}
-
-float compute_tree_nodes(const char n, const float a, const float b){
-	float out = 0;
-	switch(n){
-		case 'a':
-			out = a + b;
-			return out;
-		case 's':
-			out = a - b;
-			return out;
-		case 'm':
-			out = a * b;
-			return out;
-		case 'l': 
-			out = a;
-			return out;
-		case 'r': 
-			out = b;
-			return out;
-		case 'd':
-			if(b <= 0){
-				out = a;
-				return out;
+float compute_tree_node(const Node par, const Node ch_1, const Node ch_2){
+	switch(par.value.variable){
+		case ADD:
+			return (ch_1.value.constant + ch_2.value.constant);
+		case SUB:
+			return (ch_1.value.constant - ch_2.value.constant);
+		case MUL:
+			return (ch_1.value.constant * ch_2.value.constant);
+		case PLEFT:
+			return ch_1.value.constant;
+		case PRIGHT:
+			return ch_2.value.constant;
+		case DIV:
+			if(ch_2.value.constant <= 0){
+				return ch_2.value.constant;
 			}
 			else{
-				out = a / b;
-				return out;
+				return (ch_1.value.constant / ch_2.value.constant);
 			};
 		default:
-			return a;
+			return ch_1.value.constant;
 	}
 }
 
@@ -90,6 +88,4 @@ float sum_square_roots_of_deviation(const float* fit_arr, const float* y,const s
 	}
 	return sum;
 }
-		
-
 

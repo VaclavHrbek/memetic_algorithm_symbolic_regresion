@@ -2,17 +2,25 @@
 
 char decide_value(int val);
 
-char random_terminal(){
+Node random_terminal(){
 	int r = rand() % 2;
 	int constant = rand() % 9;
+	Node node;
+	node.type = TERMINAL;
 	switch(r){
 		case 0:
-			return 'x';
+			node.value.variable = X;
+			node.flag = VAR;
+			return node;
 		case 1:
-			return decide_value(constant);
+			node.value.constant = constant;
+			node.flag = CONST;
+			return node;
 		default:
-			return 'x';
-	}	
+			node.value.variable = X;
+			node.flag = VAR;
+			return node;
+	}
 }
 
 char decide_value(int val){
