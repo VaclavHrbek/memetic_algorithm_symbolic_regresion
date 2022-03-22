@@ -3,7 +3,7 @@ SHELL = /bin/sh
 .SUFFIXES:
 
 CC = gcc 
-CFLAGS = -I$(include_dir) -O -c
+CFLAGS = -I$(include_dir) -O -c -lm 
 LDFLAGS = -L/usr/local/cuda/lib64 -lcudart -lstdc++
 NVCC = nvcc
 NVCFLAGS = -I$(include_dir) -O0 --gpu-architecture=sm_52 -dc
