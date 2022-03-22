@@ -3,4 +3,8 @@
 build/
 *.swp
 *.vim
+*.qdrep
+*.sqlite
+
+
 
