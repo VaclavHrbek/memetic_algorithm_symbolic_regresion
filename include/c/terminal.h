@@ -2,6 +2,6 @@
 
 #include <stdlib.h>
 
-#include "c/data_structures.h"
+#include "c/node.h"
 
 Node random_terminal();

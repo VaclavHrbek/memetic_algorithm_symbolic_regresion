@@ -5,11 +5,13 @@
 
 #include "c/terminal.h"
 #include "c/function.h"
-#include "c/data_structures.h"
 #include "c/population.h"
 
 // TODO In some future refactoring try use currying. This function has to 
 // manny argument. It will be better (more suitable) it has only one.
+
+#define MUTAION_RATE (float) 0.1
+#define CROSSOUVER_RATE (float) 0.9
 
 Population genetic_operations(const Population* pop, const float mut_rate, const float cross_rate);
 

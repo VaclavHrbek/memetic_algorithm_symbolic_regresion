@@ -2,7 +2,8 @@
 
 #include <stdlib.h>
 
-#include "c/data_structures.h"
+#include "c/population.h"
+#include "c/data.h"
 
 const Data load_data();
 

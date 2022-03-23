@@ -1,12 +1,13 @@
 #include <time.h>
 #include <stddef.h>
 
-#include "c/data_structures.h"
 #include "c/population.h"
 #include "c/fitness.h"
 #include "cuda/fitness.cuh"
 #include "c/genetic_operation.h"
 #include "c/optimizer.h"
+#include "c/genetic_program.h"
+
 
 int main(void){
 	srand((unsigned int)time(NULL));	

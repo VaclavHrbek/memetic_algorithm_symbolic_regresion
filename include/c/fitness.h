@@ -5,7 +5,7 @@
 #include <float.h>
 
 #include "c/equation.h"
-#include "c/data_structures.h"
+#include "c/population.h"
 
 void calculate_fitness(Population* pop);
 

@@ -2,7 +2,8 @@
 
 #include <stdlib.h>
 
-#include "c/data_structures.h"
+#include "c/data.h"
+#include "c/individual.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -7,9 +7,16 @@
 #include <stdbool.h>
 #include <math.h>
 
-#include "c/data_structures.h"
 #include "c/terminal.h"
 #include "c/function.h"
+#include "c/individual.h"
+
+#define SIZE_OF_POPULAION (size_t) 500
+
+typedef struct population {
+		size_t size;
+		Individual ind[SIZE_OF_POPULAION];
+} Population;
 
 Population create_population(const size_t s, const size_t n);
 
