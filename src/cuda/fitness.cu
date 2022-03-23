@@ -10,7 +10,7 @@ void cuda_calculate_fitness(Population* pop){
 		return;
 	};
 	cudaMemcpy(d_pop, pop, sizeof(Population), cudaMemcpyHostToDevice);
-	dim3 block(1023);
+	dim3 block(256);
 	dim3 grid((pop->size / block.x) + 1); 
 	device_calculate_fitness<<<grid, block>>>(d_pop);
 	cudaMemcpy(pop, d_pop, sizeof(Population), cudaMemcpyDeviceToHost);

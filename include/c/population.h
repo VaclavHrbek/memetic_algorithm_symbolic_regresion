@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <float.h>
 #include <stdbool.h>
+#include <math.h>
 
 #include "c/data_structures.h"
 #include "c/terminal.h"

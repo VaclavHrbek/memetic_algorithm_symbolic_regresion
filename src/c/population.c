@@ -41,7 +41,7 @@ size_t get_index_of_best(Population *pop){
 
 bool check_zero_fitness(Population* pop){
 	for(size_t i = 0; i != pop->size; ++i){
-		if(pop->ind[i].fitness <= 0.1){
+		if(pop->ind[i].fitness <= 0.2){
 			return true;
 		}
 	}
@@ -68,9 +68,11 @@ void print_best_ind_from_population(Population* pop){
 
 void print_ind(Individual* ind){
 	printf("Best with fitness: %f \n", ind->fitness);
+	int last_height = 0;
+	int new_height = 0;
 	for(size_t i = 0; i != ind->size; ++i){
-		print_node(&ind->node[i]);
-		printf(", ");
+			print_node(&ind->node[i]);
+			printf(", ");
 	}
 	printf("\n");
 	
