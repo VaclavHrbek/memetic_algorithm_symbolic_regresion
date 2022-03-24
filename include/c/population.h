@@ -11,7 +11,7 @@
 #include "c/function.h"
 #include "c/individual.h"
 
-#define SIZE_OF_POPULAION (size_t) 500
+#define SIZE_OF_POPULAION (size_t) 20000
 
 typedef struct population {
 		size_t size;
@@ -19,17 +19,10 @@ typedef struct population {
 } Population;
 
 Population create_population(const size_t s, const size_t n);
-
 void push_to_pop(Individual ind, Population* pop);
-
 Individual get_best_ind(Population* pop);
-
-size_t get_index_of_best(Population *pop);
-
-bool check_zero_fitness(Population* pop);
-
+bool check_fitness_less_than(Population* pop, float val);
 void print_best_ind_from_population(Population* pop);
-
-void print_ind(Individual* ind);
-
-void print_node(Node* n);
+Population* malloc_population(void);
+size_t get_index_of_best_in_population(const Population* pop);
+size_t* get_n_indexes_of_best_ind_in_population(const Population* pop, const size_t n);

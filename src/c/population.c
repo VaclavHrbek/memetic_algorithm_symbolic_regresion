@@ -27,10 +27,42 @@ void push_to_pop(Individual ind, Population* pop){
 
 }
 
-size_t get_index_of_best(Population *pop){
+//size_t get_index_of_best(Population *pop){
+//	float best = FLT_MAX;
+//	size_t best_index = 0;
+//	for(size_t i = 0; i != pop->size; i++){
+//		if(pop->ind[i].fitness < best){
+//			best = pop->ind[i].fitness;
+//			best_index = i;
+//		}
+//	}
+//	return best_index;
+//}
+
+size_t* get_n_indexes_of_best_ind_in_population(const Population* pop, const size_t n){
+	size_t* arr = (size_t*)(malloc(sizeof(size_t)*n));
+	Population* new_pop = (Population*)(malloc(sizeof(Population)));
+	*new_pop = *pop;
+	for(size_t a = 0; a != n; a++){
+		float best = FLT_MAX;
+		size_t best_index = 0;
+		for(size_t i = 0; i != pop->size; ++i){
+			if(new_pop->ind[i].fitness < best){
+				best = new_pop->ind[i].fitness;
+				best_index = i;
+			}
+		}
+		arr[a] = best_index;
+		new_pop->ind[best_index].fitness = FLT_MAX;
+	}
+	free(new_pop);
+	return arr;
+};	
+
+size_t get_index_of_best_in_population(const Population* pop){
 	float best = FLT_MAX;
 	size_t best_index = 0;
-	for(size_t i = 0; i != pop->size; i++){
+	for(size_t i = 0; i != pop->size; ++i){
 		if(pop->ind[i].fitness < best){
 			best = pop->ind[i].fitness;
 			best_index = i;
@@ -38,15 +70,7 @@ size_t get_index_of_best(Population *pop){
 	}
 	return best_index;
 }
-
-bool check_zero_fitness(Population* pop){
-	for(size_t i = 0; i != pop->size; ++i){
-		if(pop->ind[i].fitness <= 0.2){
-			return true;
-		}
-	}
-	return false;
-}
+		
 
 Individual get_best_ind(Population* pop){
 	float best = FLT_MAX;
@@ -61,92 +85,34 @@ Individual get_best_ind(Population* pop){
 	return pop->ind[best_index];
 }
 
+bool check_fitness_less_than(Population* pop, float val){
+	for(size_t i = 0; i != pop->size; ++i){
+		if(pop->ind[i].fitness <= val){
+			return true;
+		}
+	}
+	return false;
+}
+
 void print_best_ind_from_population(Population* pop){
-	size_t idx = get_index_of_best(pop);	
+	size_t idx = get_index_of_best_in_population(pop);	
 	print_ind(&pop->ind[idx]);
 }
 
-void print_ind(Individual* ind){
-	printf("Best with fitness: %f \n", ind->fitness);
-	int last_height = 0;
-	int new_height = 0;
-	for(size_t i = 0; i != ind->size; ++i){
-			print_node(&ind->node[i]);
-			printf(", ");
-	}
-	printf("\n");
-	
-}
-
-void print_node(Node* n){
-	if(n->type == FUNCTION){
-		switch(n->value.variable){
-			case ADD:
-				printf("ADD");				
-				break;
-			case SUB:
-				printf("SUB");				
-				break;
-			case DIV:
-				printf("DIV");				
-				break;
-			case MUL:
-				printf("MUL");				
-				break;
-			case PLEFT:
-				printf("PLEFT");				
-				break;
-			case PRIGHT:
-				printf("PRIGHT");				
-				break;
-			default:
-				printf("Unknow Value");
-				break;
-		}
-	}
-	else{
-		if(n->flag == CONST){
-			printf("%f", n->value.constant);
-		}
-		else{
-			switch(n->value.variable){
-				case X:
-					printf("X");
-					break;
-				case Y:
-					printf("Y");
-					break;
-				default:
-					printf("Unknow Value");
-					break;
+Population* malloc_population(void){
+	Population* pop = (Population*)(malloc(sizeof(Population)));
+	pop->size = SIZE_OF_POPULAION;
+	for(size_t i = 0; i != pop->size; ++i){
+		pop->ind[i].size = NUMBER_OF_NODES_IND;
+		for(size_t a = 0; a != pop->ind[i].size; ++a){
+			if(a < (pop->ind[i].size / 2)){
+				pop->ind[i].node[a] = random_function();
+			}
+			else{
+				pop->ind[i].node[a] = random_terminal();
 			}
 		}
 	}
+	return pop;
 }
- 
-//void print_population(const Population* pop){
-//	for(size_t i = 0; i != pop->size_pop; i++){
-//		for(size_t a = 0; a != pop->num_of_nodes_ind; a++){
-//			printf("%c ", pop->arr[i][a]);
-//		}
-//		printf("fitness: %f", pop->fitness[i]); 
-//		puts("");
-//	}
-//}
-//
-//void print_best_individual(const Population* pop){
-//	float best = 10000;
-//	size_t indx = 0;
-//	for(size_t i = 0; i != pop->size_pop; i++){
-//		if(pop->fitness[i] < best){
-//			best = pop->fitness[i];
-//			indx = i;
-//		}
-//	}
-//	for(size_t a = 0; a != pop->num_of_nodes_ind; a++){
-//		printf("%c ", pop->arr[indx][a]);
-//	}
-//	printf("fitness: %f", pop->fitness[indx]); 
-//	puts("");
-//}
-//
+

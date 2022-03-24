@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdio.h>
+
 typedef enum { TERMINAL, FUNCTION } Type ;
 typedef enum  { CONST, VAR } Flag;
 typedef enum { ADD, SUB, DIV, MUL, X, Y, PLEFT, PRIGHT } Variable;
@@ -12,3 +14,5 @@ typedef struct node {
 		float constant;
 	} value;
 } Node;
+
+void print_node(Node* n);

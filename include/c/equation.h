@@ -5,8 +5,6 @@
 #include "c/population.h"
 #include "c/data.h"
 
-const Data load_data();
-
 float equation(const Individual ind);
 
 float compute_tree_node(const Node par, const Node ch_1, const Node ch_2);

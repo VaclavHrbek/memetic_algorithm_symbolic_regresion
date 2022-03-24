@@ -23,40 +23,6 @@ float equation(const Individual ind){
 	return fitness;
 }
 
-//const Data sextic_data(){
-	//Data data = {
-
-
-const Data load_data(){
-	// sextic data are for: ax^6+bx^5+cx^4+dx^3+ex^2+fx+g=y
-	Data data = {
-		{-0.41, 0.39, 0.85, 0.96, -0.48, 0.14, 0.22, -0.99, -0.98, 0.36, -0.02, -0.39, -0.81, 0.34, 0.61, -0.82, 0.71, 0.57, -0.7, -0.35, -0.54},	// x
-		{5.171167694,
-		10.42874281,
-		20.99957889,
-		25.86848686,
-		4.950154277,
-		7.950243574,
-		8.612763786,
-		4.00059208,
-		4.002337267,
-		10.0592825,
-		6.881968474,
-		5.238101134,
-		4.171210286,
-		9.825937969,
-		14.06423886,
-		4.155420265,
-		16.46344058,
-		13.25658689,
-		4.379809,
-		5.377352641,
-		4.776197586},	// y
-		21			//size of the array
-	};
-	return data;
-}
-
 float compute_tree_node(const Node par, const Node ch_1, const Node ch_2){
 	switch(par.value.variable){
 		case ADD:
