@@ -6,7 +6,7 @@ CC = gcc
 CFLAGS = -I$(include_dir) -O -c -lm 
 LDFLAGS = -L/usr/local/cuda/lib64 -lcudart -lstdc++
 NVCC = nvcc
-NVCFLAGS = -I$(include_dir) -O0 --gpu-architecture=sm_52 -dc
+NVCFLAGS = -I$(include_dir) -O0  -dc
 NVCLDFLAGS = -dlink
 
 file_dir = .
@@ -31,10 +31,14 @@ c_obj_files += $(patsubst $(app_dir)/%.c, $(build_dir)/%.o, $(app_src_files))
 
 all: executable
 
-debug: CFLAGS += -g -O0 -fsanitize=address
-debug: LDFLAGS += -fsanitize=address
+debug: CFLAGS += -g -O0 
 debug: NVCFLAGS += -g -G
 debug: executable
+
+asan: CFLAGS += -g -O0 -fsanitize=address
+asan: LDFLAGS += -fsanitize=address
+asan: NVCFLAGS += -g -G
+asan: executable
 
 coverage: CFLAGS += -fprofile-arcs -ftest-coverage
 coverage: LDFLAGS += -lgcov --coverage
