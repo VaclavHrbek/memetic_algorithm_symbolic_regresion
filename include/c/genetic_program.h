@@ -9,7 +9,7 @@
 #include "c/genetic_operation.h"
 #include "c/optimizer.h"
 
-#define NUM_OF_GENERATION (size_t) 10   
+#define NUM_OF_GENERATION (size_t) 40
 #define NUM_OF_EVOLUTIONARY_CYCLES (size_t) 1
 #define END_CONDITION_FITTNESS_LESS_THAN (float) 0.2
 

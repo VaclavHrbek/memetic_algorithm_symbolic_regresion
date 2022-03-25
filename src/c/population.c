@@ -1,15 +1,17 @@
 #include "c/population.h"
 
-Population create_population(const size_t s, const size_t n){
-	Population pop = { .size = s};
-	for(size_t i = 0; i != pop.size; ++i){
-		pop.ind[i].size = n;
-		for(size_t a = 0; a != pop.ind[i].size; ++a){
-			if(a < (pop.ind[i].size / 2)){
-				pop.ind[i].node[a] = random_function();
+Population* create_population(const size_t s, const size_t n){
+	//Population pop = { .size = s};
+	Population* pop = (Population*)(malloc(sizeof(Population)));
+	pop->size = s;
+	for(size_t i = 0; i != pop->size; ++i){
+		pop->ind[i].size = n;
+		for(size_t a = 0; a != pop->ind[i].size; ++a){
+			if(a < (pop->ind[i].size / 2)){
+				pop->ind[i].node[a] = random_function();
 			}
 			else{
-				pop.ind[i].node[a] = random_terminal();
+				pop->ind[i].node[a] = random_terminal();
 			}
 		}
 	}
@@ -21,23 +23,12 @@ void push_to_pop(Individual ind, Population* pop){
 		pop->ind[pop->size] = ind;
 		pop->size++;
 	}
+
 //TODO
 // make exception here to know that hte population 
 // is full and can't add another individual. 
 
 }
-
-//size_t get_index_of_best(Population *pop){
-//	float best = FLT_MAX;
-//	size_t best_index = 0;
-//	for(size_t i = 0; i != pop->size; i++){
-//		if(pop->ind[i].fitness < best){
-//			best = pop->ind[i].fitness;
-//			best_index = i;
-//		}
-//	}
-//	return best_index;
-//}
 
 size_t* get_n_indexes_of_best_ind_in_population(const Population* pop, const size_t n){
 	size_t* arr = (size_t*)(malloc(sizeof(size_t)*n));
@@ -71,7 +62,6 @@ size_t get_index_of_best_in_population(const Population* pop){
 	return best_index;
 }
 		
-
 Individual get_best_ind(Population* pop){
 	float best = FLT_MAX;
 	size_t best_index = 0;
@@ -79,7 +69,6 @@ Individual get_best_ind(Population* pop){
 		if(pop->ind[i].fitness < best){
 			best = pop->ind[i].fitness;
 			best_index = i;
-			pop->ind[i].fitness = FLT_MAX;
 		}
 	}
 	return pop->ind[best_index];

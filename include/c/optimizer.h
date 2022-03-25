@@ -12,5 +12,6 @@
 #define NUM_OF_OPTIMIZATION (size_t) 10 // cycles
 #define SIZE_FOR_OPTIMIZATION (size_t) 10 // number of ind
 
-Population optimize(Population pop);
+Population optimize(Population* pop);
+Individual stochastic_hill_climbing_constants(Individual ind);
 

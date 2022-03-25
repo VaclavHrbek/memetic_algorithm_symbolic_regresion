@@ -1,24 +1,28 @@
 #include "c/optimizer.h"
 
 
-Population optimize(Population pop){
-	for(size_t a = 0; a != NUM_OF_OPTIMIZATION; ++a){
-		Population new_pop = pop;
-		for(size_t x = 0; x != new_pop.size; x++){
-			new_pop.ind[x].fitness = FLT_MAX;
+Population optimize(Population* pop){
+	size_t* n_best_indexes_in_pop = get_n_indexes_of_best_ind_in_population(pop, SIZE_FOR_OPTIMIZATION);
+	for(size_t i = 0; i != SIZE_FOR_OPTIMIZATION; ++i){
+		Individual* ind = &pop->ind[n_best_indexes_in_pop[i]];
+		Individual ind_2 = stochastic_hill_climbing_constants(*ind);
+		float fit = equation(ind_2);
+		if(ind_2.fitness < ind->fitness){
+			*ind = ind_2;
+			printf("Better solution found in optimizer \n");
 		}
-		new_pop.size = 0;
-		
-		for(size_t i = 0; i != SIZE_FOR_OPTIMIZATION; ++i){
-			mutation(get_best_ind(&pop), &new_pop);
-		}
-
-		calculate_fitness(&new_pop);
-		if(check_zero_fitness(&new_pop) == true){
-			return new_pop;
-		};
-		new_pop.size = pop.size;
-		pop = new_pop;
 	}
-	return pop;
+	free(n_best_indexes_in_pop);
+	return *pop;
+}
+
+Individual stochastic_hill_climbing_constants(Individual ind){
+	for(size_t i = 0; i != NUM_OF_OPTIMIZATION; ++i){
+		Individual ind_2 = random_all_constants(ind);
+		ind_2.fitness = equation(ind_2);
+		if(ind_2.fitness < ind.fitness){
+			ind = ind_2;
+		}
+	}
+	return ind;
 }

@@ -7,7 +7,7 @@ int main(void){
 	gp->pop = malloc_population();
 	gp->data = malloc_data();
 
-	//run_gp(gp);
+	run_gp(gp);
 	//run_gp_gpu(gp);
 
 	free(gp->data);

@@ -33,7 +33,8 @@ void run_gp(GeneticProgram* gp){
 				return;
 			};
 
-			*new_pop = genetic_operations(gp->pop, MUTAION_RATE, CROSSOUVER_RATE);
+			free(new_pop);
+			new_pop = genetic_operations(gp->pop, MUTAION_RATE, CROSSOUVER_RATE);
 			calculate_fitness(new_pop);
 			//cuda_calculate_fitness(&new_pop);
 
@@ -45,6 +46,7 @@ void run_gp(GeneticProgram* gp){
 				printf("Cycle took %f seconds to execute \n", time_taken);
 				return;
 			};
+			print_best_ind_from_population(new_pop);
 
 			*gp->pop = *new_pop;
 			free(new_pop);
@@ -85,7 +87,7 @@ void run_gp_gpu(GeneticProgram* gp){
 				return;
 			};
 
-			*new_pop = genetic_operations(gp->pop, MUTAION_RATE, CROSSOUVER_RATE);
+			new_pop = genetic_operations(gp->pop, MUTAION_RATE, CROSSOUVER_RATE);
 			cuda_calculate_fitness(new_pop);
 
 			if(check_fitness_less_than(new_pop, END_CONDITION_FITTNESS_LESS_THAN) == true){

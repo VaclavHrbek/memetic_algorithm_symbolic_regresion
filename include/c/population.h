@@ -18,7 +18,7 @@ typedef struct population {
 		Individual ind[SIZE_OF_POPULAION];
 } Population;
 
-Population create_population(const size_t s, const size_t n);
+Population* create_population(const size_t s, const size_t n);
 void push_to_pop(Individual ind, Population* pop);
 Individual get_best_ind(Population* pop);
 bool check_fitness_less_than(Population* pop, float val);
