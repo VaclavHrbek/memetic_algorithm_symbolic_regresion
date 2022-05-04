@@ -5,13 +5,12 @@
 
 #include "c/population.h"
 #include "c/fitness.h"
-#include "cuda/fitness.cuh"
 #include "c/genetic_operation.h"
 #include "c/optimizer.h"
 
-#define NUM_OF_GENERATION (size_t) 40
-#define NUM_OF_EVOLUTIONARY_CYCLES (size_t) 1
-#define END_CONDITION_FITTNESS_LESS_THAN (float) 0.2
+#define NUM_OF_GENERATION (size_t) 1000
+#define NUM_OF_EVOLUTIONARY_CYCLES (size_t) 5
+#define END_CONDITION_FITTNESS_LESS_THAN (float) 0.1
 
 typedef struct gp {
 	Population* pop;
@@ -19,5 +18,4 @@ typedef struct gp {
 } GeneticProgram;
 
 void run_gp(GeneticProgram* gp);
-void run_gp_gpu(GeneticProgram* gp);
 

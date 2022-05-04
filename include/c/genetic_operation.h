@@ -11,7 +11,7 @@
 // manny argument. It will be better (more suitable) it has only one.
 
 #define MUTAION_RATE (float) 0.1
-#define CROSSOUVER_RATE (float) 0.9
+#define CROSSOUVER_RATE (float) 0.8
 
 Population* genetic_operations(Population* pop, const float mut_rate, const float cross_rate);
 Individual turnament_selection(const Population *pop);

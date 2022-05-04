@@ -11,7 +11,7 @@
 #include "c/function.h"
 #include "c/individual.h"
 
-#define SIZE_OF_POPULAION (size_t) 20000
+#define SIZE_OF_POPULAION (size_t) 2000
 
 typedef struct population {
 		size_t size;

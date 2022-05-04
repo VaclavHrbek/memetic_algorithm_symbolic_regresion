@@ -9,5 +9,5 @@ typedef struct data {
 	size_t size;
 } Data;
 
-const Data load_data(void);
+Data load_data(void);
 Data* malloc_data(void);
