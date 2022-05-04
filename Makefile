@@ -2,12 +2,12 @@ SHELL = /bin/sh
 
 .SUFFIXES:
 
-CC = gcc 
-CFLAGS = -I$(include_dir) -O -c -lm 
-LDFLAGS = -L/usr/local/cuda/lib64 -lcudart -lstdc++
+CC = nvcc 
+CFLAGS = -O0 -c -I$(include_dir) -I/usr/local/cuda/include
+LDFLAGS = -lm -lstdc++ 
 NVCC = nvcc
-NVCFLAGS = -I$(include_dir) -O0  -dc
-NVCLDFLAGS = -dlink
+NVCFLAGS = -O0 -arch=sm_52 -dc -I$(include_dir) -I/usr/local/cuda/include  
+NVCLDFLAGS =  -L/usr/local/cuda/lib64 -lcudart -lcurand -lcuda -lfile
 
 file_dir = .
 build_dir = $(file_dir)/build
@@ -19,15 +19,15 @@ cuda_src_dir = $(file_dir)/src/cuda
 app_dir = $(file_dir)/app
 include_dir = $(file_dir)/include
 
-c_src_files := $(wildcard $(c_src_dir)/*.c)
-app_src_files := $(wildcard $(app_dir)/*.c)
+c_src_files := $(wildcard $(c_src_dir)/*.cpp)
+app_src_files := $(wildcard $(app_dir)/*.cpp)
 #openacc_src_files := $(wildcard $(openacc_src_dir)/*.c) 
 cuda_src_files := $(wildcard $(cuda_src_dir)/*.cu)
 
 cuda_obj_files := $(patsubst %.cu, %.o ,$(patsubst $(src_dir)/%, $(build_dir)/%, $(cuda_src_files)))
 
-c_obj_files := $(patsubst %.c, %.o ,$(patsubst $(src_dir)/%, $(build_dir)/%, $(c_src_files)))
-c_obj_files += $(patsubst $(app_dir)/%.c, $(build_dir)/%.o, $(app_src_files))
+c_obj_files := $(patsubst %.cpp, %.o ,$(patsubst $(src_dir)/%, $(build_dir)/%, $(c_src_files)))
+c_obj_files += $(patsubst $(app_dir)/%.cpp, $(build_dir)/%.o, $(app_src_files))
 
 all: executable
 
@@ -52,10 +52,10 @@ executable: $(c_obj_files) main
 
 $(c_obj_files): | $(build_dir)
 
-$(build_dir)/c/%.o: $(c_src_dir)/%.c
+$(build_dir)/c/%.o: $(c_src_dir)/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 	
-$(build_dir)/%.o: $(app_dir)/%.c
+$(build_dir)/%.o: $(app_dir)/%.cpp
 	$(CC) $(CFLAGS) $< -o $@
 
 $(build_dir)/cuda/%.o: $(cuda_src_dir)/%.cu
@@ -64,9 +64,8 @@ $(build_dir)/cuda/%.o: $(cuda_src_dir)/%.cu
 $(build_dir)/link_device_code.o: $(cuda_obj_files)
 	$(NVCC) $(NVCLDFLAGS) $^ -o $@
 
-
-main: $(c_obj_files) $(cuda_obj_files) $(build_dir)/link_device_code.o
-	$(CC) $^ -o $(build_dir)/$@ $(LDFLAGS)
+main: $(c_obj_files) $(cuda_obj_files) 
+	$(CC) $(LDFLAGS) $(NVCLDFLAGS) $^ -o $(build_dir)/$@ 
 
 $(build_dir):
 	$(foreach i, $(build_sub_dirs), $(shell mkdir -p  $(build_dir)/$(i)))
