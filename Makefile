@@ -6,7 +6,7 @@ CC = nvcc
 CFLAGS = -O0 -c -I$(include_dir) -I/usr/local/cuda/include
 LDFLAGS = -lm -lstdc++ 
 NVCC = nvcc
-NVCFLAGS = -O0 -arch=sm_52 -dc -I$(include_dir) -I/usr/local/cuda/include  
+NVCFLAGS = -O0 -dc -I$(include_dir) -I/usr/local/cuda/include  
 NVCLDFLAGS =  -L/usr/local/cuda/lib64 -lcudart -lcurand -lcuda -lfile
 
 file_dir = .
