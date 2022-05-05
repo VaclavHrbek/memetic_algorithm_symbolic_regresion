@@ -5,6 +5,7 @@ build/
 *.vim
 *.qdrep
 *.sqlite
+*.swo
 vysledky*
 tags
 list*
