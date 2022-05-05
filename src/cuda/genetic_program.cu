@@ -24,6 +24,8 @@ void run_gp_gpu(GeneticProgram* gp){
 			clock_t start_generation = clock();
 
 			cuda_calculate_fitness(d_pop);
+			//TODO use for_each algorithm on next function (if it is possible
+			// because I don't use the containers).
 			device_check_end_condition<<<1,1>>>(d_pop);
 			device_print_best_so_far<<<1,1>>>(d_pop);
 
@@ -38,9 +40,7 @@ void run_gp_gpu(GeneticProgram* gp){
 
 			clock_t start_gen_operation = clock();
 			cuda_device_to_host_memcpy_population(d_pop, gp->pop);	
-
 			gp->pop = genetic_operations(gp->pop, MUTAION_RATE, CROSSOUVER_RATE);
-
 			cuda_host_to_device_memcpy_population(d_pop, gp->pop);
 			duration_gen_operation += clock() - start_gen_operation;
 
