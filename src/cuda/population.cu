@@ -3,22 +3,37 @@
 Population* cuda_malloc_population(){
 	Population* d_pop;
 	if(cudaMalloc(&d_pop, sizeof(Population)) != cudaSuccess){
-		// TODO Implement error handlig
-		printf("Cuda device allocation fail ");
+		cudaError_t err = cudaGetLastError();
+		printf("Error in function: %s\n"
+				"Error name: %s \n"
+				"Error description: %s\n",
+				__FUNCTION__,
+				cudaGetErrorName(err),
+				cudaGetErrorString(err));
 	};
 	return d_pop;
 }
 
 void cuda_host_to_device_memcpy_population(Population* d_pop, Population* pop){
 	if(cudaMemcpy(d_pop, pop, sizeof(Population), cudaMemcpyHostToDevice) != cudaSuccess){
-		// TODO Implement error handlig
-		printf("Cuda host to device copy fail ");
+		cudaError_t err = cudaGetLastError();
+		printf("Error in function: %s\n"
+				"Error name: %s \n"
+				"Error description: %s\n",
+				__FUNCTION__,
+				cudaGetErrorName(err),
+				cudaGetErrorString(err));
 	}
 }
 void cuda_device_to_host_memcpy_population(Population* d_pop, Population* pop){
 	if(cudaMemcpy(pop, d_pop, sizeof(Population), cudaMemcpyDeviceToHost) != cudaSuccess){
-		// TODO Implement error handlig
-		printf("Cuda device to host copy fail ");
+		cudaError_t err = cudaGetLastError();
+		printf("Error in function: %s\n"
+				"Error name: %s \n"
+				"Error description: %s\n",
+				__FUNCTION__,
+				cudaGetErrorName(err),
+				cudaGetErrorString(err));
 	}
 
 }
