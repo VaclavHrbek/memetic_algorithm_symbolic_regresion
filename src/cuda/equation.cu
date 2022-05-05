@@ -80,7 +80,7 @@ float device_compute_tree_node(const Node par, const Node ch_1, const Node ch_2)
 		case PRIGHT:
 			return ch_2.value.constant;
 		case DIV:
-			if(ch_2.value.constant <= 0){
+			if(ch_2.value.constant == 0){
 				return ch_2.value.constant;
 			}
 			else{
