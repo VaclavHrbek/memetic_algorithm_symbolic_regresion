@@ -2,13 +2,11 @@
 .git
 build/
 *.swp
+*.swo
 *.vim
 *.qdrep
 *.sqlite
-*.swo
 vysledky*
 tags
 list*
 nalozeno*
-
-
