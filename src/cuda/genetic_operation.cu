@@ -11,3 +11,4 @@ Individual device_random_all_constants(Individual ind, curandState *state){
 	}
 	return ind;
 }
+
