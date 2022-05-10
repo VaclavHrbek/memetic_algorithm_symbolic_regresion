@@ -36,8 +36,8 @@ float compute_tree_node(const Node par, const Node ch_1, const Node ch_2){
 		case PRIGHT:
 			return ch_2.value.constant;
 		case DIV:
-			if(ch_2.value.constant <= 0){
-				return ch_2.value.constant;
+			if(ch_2.value.constant == 0){
+				return ch_1.value.constant;
 			}
 			else{
 				return (ch_1.value.constant / ch_2.value.constant);

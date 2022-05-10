@@ -9,7 +9,7 @@
 #include "c/genetic_operation.h"
 #include "c/population.h"
 
-#define NUM_OF_OPTIMIZATION (size_t) 1000 // cycles
+#define NUM_OF_OPTIMIZATION (size_t) 100 // cycles
 #define SIZE_FOR_OPTIMIZATION (size_t) 200 // number of ind
 
 Population optimize(Population* pop);

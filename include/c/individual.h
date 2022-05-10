@@ -5,7 +5,7 @@
 
 #include "c/node.h"
 
-#define NUMBER_OF_NODES_IND (size_t) 127
+#define NUMBER_OF_NODES_IND (size_t) 15
 
 typedef struct individual {
 	Node node[NUMBER_OF_NODES_IND];
