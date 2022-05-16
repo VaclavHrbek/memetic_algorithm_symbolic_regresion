@@ -41,6 +41,7 @@ void run_gp(GeneticProgram* gp){
 				if(check_fitness_less_than(new_pop, END_CONDITION_FITTNESS_LESS_THAN) == true){
 					printf("Found solution after optimization\n");
 					print_best_ind_from_population(new_pop);
+					free(new_pop);
 					break;
 				};
 
@@ -53,6 +54,7 @@ void run_gp(GeneticProgram* gp){
 				if(check_fitness_less_than(new_pop, END_CONDITION_FITTNESS_LESS_THAN) == true){
 					printf("Found solution after genetic operation\n");
 					print_best_ind_from_population(new_pop);
+					free(new_pop);
 					break;
 				};
 

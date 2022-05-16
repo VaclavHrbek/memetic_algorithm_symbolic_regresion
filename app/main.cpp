@@ -26,8 +26,8 @@ int main(){
 			NUM_OF_OPTIMIZATION,
 			SIZE_FOR_OPTIMIZATION);
 	
-	//run_gp(gp);
-	run_gp_gpu(gp);
+	run_gp(gp);
+	//run_gp_gpu(gp);
 
 	free(gp->data);
 	free(gp->pop);
