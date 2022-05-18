@@ -2,6 +2,7 @@
 
 #include <time.h>
 #include <stddef.h>
+#include <fstream>
 
 #include "c/population.h"
 #include "c/fitness.h"

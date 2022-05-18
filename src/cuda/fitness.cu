@@ -7,6 +7,7 @@ void cuda_calculate_fitness(Population* d_pop){
 	dim3 block(256);
 	dim3 grid((SIZE_OF_POPULAION / block.x) + 1); 
 	device_calculate_fitness<<<grid, block>>>(d_pop);
+	cudaDeviceSynchronize();
 }
 
 __global__

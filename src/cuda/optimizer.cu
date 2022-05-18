@@ -18,8 +18,11 @@ void cuda_optimize(Population* d_pop){
 	curandState *dev_state;
 	cudaMalloc((void**)&dev_state, (block.x * grid.x) * sizeof(curandState));
 	setup_kernel<<<grid, block>>>(dev_state);
+	cudaDeviceSynchronize();
 	device_get_n_indexes_of_best_ind_in_population<<<1,1>>>(d_pop, SIZE_FOR_OPTIMIZATION, d_n_best_indexes_in_pop);
+	cudaDeviceSynchronize();
 	device_optimize<<<grid, block>>>(d_pop, dev_state, d_n_best_indexes_in_pop);
+	cudaDeviceSynchronize();
 }
 
 __global__ void setup_kernel(curandState *state)
@@ -40,8 +43,8 @@ void device_optimize(Population* d_pop, curandState *state, size_t* indexes){
 		curandState local_state = state[i];
 		Individual* ind = &d_pop->ind[indexes[i]];
 		for(size_t i = 0; i != NUM_OF_OPTIMIZATION; ++i){
-			Individual ind_2 = device_hill_climbing(*ind, &local_state);
-			//Individual ind_2 = device_random_search(*ind, &local_state);
+			//Individual ind_2 = device_hill_climbing(*ind, &local_state);
+			Individual ind_2 = device_random_search(*ind, &local_state);
 			ind_2.fitness = device_equation(ind_2);
 			if(ind_2.fitness < ind->fitness){
 				*ind = ind_2;

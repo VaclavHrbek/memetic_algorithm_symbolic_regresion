@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdio.h>
+#include <string>
 
 typedef enum { TERMINAL, FUNCTION } Type ;
 typedef enum  { CONST, VAR } Flag;
@@ -16,3 +17,4 @@ typedef struct node {
 } Node;
 
 void print_node(Node* n);
+std::string node_value(Node* n);

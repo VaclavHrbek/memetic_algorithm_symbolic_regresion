@@ -16,7 +16,7 @@ extern "C" {
 		__global__
 			void device_print_best_so_far(const Population* d_pop);
 		__global__
-			void device_check_end_condition(const Population* d_pop);
+			void device_check_end_condition(const Population* d_pop, int* flag);
 #ifdef __cplusplus
 }
 #endif
