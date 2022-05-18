@@ -88,6 +88,11 @@ void print_best_ind_from_population(Population* pop){
 	print_ind(&pop->ind[idx]);
 }
 
+void put_best_to_file(Population* pop){
+	size_t idx = get_index_of_best_in_population(pop);	
+	put_ind_to_file(&pop->ind[idx]);
+}
+
 Population* malloc_population(void){
 	Population* pop = (Population*)(malloc(sizeof(Population)));
 	pop->size = SIZE_OF_POPULAION;

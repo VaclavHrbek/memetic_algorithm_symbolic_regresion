@@ -26,3 +26,4 @@ void print_best_ind_from_population(Population* pop);
 Population* malloc_population(void);
 size_t get_index_of_best_in_population(const Population* pop);
 size_t* get_n_indexes_of_best_ind_in_population(const Population* pop, const size_t n);
+void put_best_to_file(Population* pop);

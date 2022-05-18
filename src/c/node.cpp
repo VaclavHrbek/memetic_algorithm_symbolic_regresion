@@ -1,5 +1,53 @@
 #include "c/node.h"
 
+std::string node_value(Node* n){
+	std::string val;
+	if(n->type == FUNCTION){
+		switch(n->value.variable){
+			case ADD:
+				val = "ADD";				
+				break;
+			case SUB:
+				val = "SUB";				
+				break;
+			case DIV:
+				val = "DIV";				
+				break;
+			case MUL:
+				val = "MUL";				
+				break;
+			case PLEFT:
+				val = "PLEFT";				
+				break;
+			case PRIGHT:
+				val = "PRIGHT";				
+				break;
+			default:
+				val = "Unknow Value";
+				break;
+		}
+	}
+	else{
+		if(n->flag == CONST){
+			val = std::to_string(n->value.constant);
+		}
+		else{
+			switch(n->value.variable){
+				case X:
+					val = "X";
+					break;
+				case Y:
+					val = "Y";
+					break;
+				default:
+					val = "Unknow Value";
+					break;
+			}
+		}
+	}
+	return val;
+}
+
 void print_node(Node* n){
 	if(n->type == FUNCTION){
 		switch(n->value.variable){
