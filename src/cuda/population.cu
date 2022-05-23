@@ -72,7 +72,7 @@ void device_print_best_so_far(const Population* d_pop){
 }
 
 __global__
-void device_check_end_condition(const Population* d_pop, int *flag){
+void device_check_end_condition(const Population* d_pop, int* flag){
 	Individual best;
 	best.fitness = FLT_MAX;
 	for(size_t i = 0; i != d_pop->size; ++i){
@@ -80,9 +80,9 @@ void device_check_end_condition(const Population* d_pop, int *flag){
 			best = d_pop->ind[i];
 		}
 	}
-	if(*flag == 0){
+	if(flag[0] == 0){
 	if(best.fitness <= 1){
-			*flag = 1;
+			flag[0] = 1;
 			printf("Found solution, ");
 			printf("%f,", best.fitness);
 			device_print_ind(&best);
