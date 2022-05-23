@@ -18,9 +18,7 @@ void cuda_optimize(Population* d_pop){
 	curandState *dev_state;
 	cudaMalloc((void**)&dev_state, (block.x * grid.x) * sizeof(curandState));
 	setup_kernel<<<grid, block>>>(dev_state);
-	cudaDeviceSynchronize();
 	device_get_n_indexes_of_best_ind_in_population<<<1,1>>>(d_pop, SIZE_FOR_OPTIMIZATION, d_n_best_indexes_in_pop);
-	cudaDeviceSynchronize();
 	device_optimize<<<grid, block>>>(d_pop, dev_state, d_n_best_indexes_in_pop);
 	cudaDeviceSynchronize();
 }
