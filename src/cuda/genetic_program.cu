@@ -19,7 +19,7 @@ void run_gp_gpu(GeneticProgram* gp){
 		gp->pop = malloc_population();
 		int *flag;
 		cudaMallocManaged(&flag, sizeof(int));
-		flag = 0;
+		flag[0] = 0;
 		cuda_host_to_device_memcpy_population(d_pop, gp->pop);
 		printf("#####################\n"
 				"Evolutionray cycle %li\n", a);
@@ -40,7 +40,7 @@ void run_gp_gpu(GeneticProgram* gp){
 			// because I don't use the containers).
 			device_check_end_condition<<<1,1>>>(d_pop, flag);
 			cudaDeviceSynchronize();
-			if(*flag == 1){
+			if(flag[0] == 1){
 				break;
 			}
 			//device_print_best_so_far<<<1,1>>>(d_pop);
@@ -54,7 +54,8 @@ void run_gp_gpu(GeneticProgram* gp){
 			duration_cal_fit += clock() - start_cal_fit;
 
 			device_check_end_condition<<<1,1>>>(d_pop, flag);
-			if(*flag == 1){
+			cudaDeviceSynchronize();
+			if(flag[0] == 1){
 				break;
 			}
 
