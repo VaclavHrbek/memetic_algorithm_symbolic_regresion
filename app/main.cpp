@@ -14,8 +14,8 @@ int main(){
 			out_file << "Number of generation," << NUM_OF_GENERATION << '\n';
 			out_file << "Size of the population," << SIZE_OF_POPULAION << '\n';
 			out_file << "Size of the tree," << NUMBER_OF_NODES_IND << '\n';
-			out_file << "Mutation constan," << MUTAION_RATE << '\n';
-			out_file << "Crossover consta," << CROSSOUVER_RATE << '\n';
+			out_file << "Mutation constant," << MUTAION_RATE << '\n';
+			out_file << "Crossover constant," << CROSSOUVER_RATE << '\n';
 			out_file << "Number of optimization cycles," << NUM_OF_OPTIMIZATION << '\n';
 			out_file << "Number of best individuals to optimize," << SIZE_FOR_OPTIMIZATION << '\n';
 				//);
@@ -25,16 +25,18 @@ int main(){
 	
 	out_file.open(OUTPUT_FILE_NAME, std::ios_base::app);
 	out_file << "#######################\n";
-	out_file << "Paralel execution below\n";
+	out_file << "Parallel execution below\n";
 	out_file << "#######################\n";
 	out_file.close();
 	std::ofstream out_r;
 	out_r.open(OUTPUT_RUN_FILE, std::ios_base::app);
 	out_r << "#######################\n";
-	out_r << "Paralel execution below\n";
+	out_r << "Parallel execution below\n";
 	out_r << "#######################\n";
 	out_r.close();
 
+	free(gp->pop);
+	gp->pop = malloc_population();
 	run_gp_gpu(gp);
 
 	free(gp->data);
