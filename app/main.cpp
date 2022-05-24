@@ -18,7 +18,6 @@ int main(){
 			out_file << "Crossover constant," << CROSSOUVER_RATE << '\n';
 			out_file << "Number of optimization cycles," << NUM_OF_OPTIMIZATION << '\n';
 			out_file << "Number of best individuals to optimize," << SIZE_FOR_OPTIMIZATION << '\n';
-				//);
 	out_file.close();
 	
 	run_gp(gp);

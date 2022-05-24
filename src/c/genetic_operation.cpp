@@ -52,7 +52,7 @@ Individual mutation(Individual ind){
 	if(ind.node[r].type == FUNCTION){
 		ind.node[r] = random_function();
 	}else{
-		ind.node[r] = random_terminal();
+		ind.node[r] = random_terminal_xy();
 	}
 	return ind;
 }

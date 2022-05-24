@@ -81,7 +81,7 @@ void device_check_end_condition(const Population* d_pop, int* flag){
 		}
 	}
 	if(flag[0] == 0){
-	if(best.fitness <= 1){
+	if(best.fitness <= END_CONDITION_FITTNESS_LESS_THAN){
 			flag[0] = 1;
 			printf("Found solution, ");
 			printf("%f,", best.fitness);

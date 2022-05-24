@@ -1,6 +1,7 @@
 #pragma once
 
 #include "c/population.h"
+#include "c/genetic_program.h"
 
 #include "cuda/population.cuh"
 #include "cuda/individual.cuh"

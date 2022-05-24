@@ -2,7 +2,7 @@
 
 void calculate_fitness(Population* pop){
 	for(size_t i = 0; i != pop->size; ++i){
-		pop->ind[i].fitness = equation(pop->ind[i]);
+		pop->ind[i].fitness = equation_xy(pop->ind[i]);
 	}
 }
 
