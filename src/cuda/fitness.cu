@@ -14,7 +14,7 @@ __global__
 void device_calculate_fitness(Population* pop){
 	int i = blockIdx.x*blockDim.x + threadIdx.x;
 	if(i < pop->size){
-		pop->ind[i].fitness = device_equation(pop->ind[i]); 
+		pop->ind[i].fitness = device_equation_xy(pop->ind[i]); 
 		if(pop->ind[i].fitness <= END_CONDITION_FITTNESS_LESS_THAN){
 			printf("Found best solution with fitness: %f.\nOn index %i in population.\n", pop->ind[i].fitness, i);
 			device_print_ind(&pop->ind[i]);

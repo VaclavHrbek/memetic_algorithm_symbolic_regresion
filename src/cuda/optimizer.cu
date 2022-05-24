@@ -43,7 +43,7 @@ void device_optimize(Population* d_pop, curandState *state, size_t* indexes){
 		for(size_t i = 0; i != NUM_OF_OPTIMIZATION; ++i){
 			//Individual ind_2 = device_hill_climbing(*ind, &local_state);
 			Individual ind_2 = device_random_search(*ind, &local_state);
-			ind_2.fitness = device_equation(ind_2);
+			ind_2.fitness = device_equation_xy(ind_2);
 			if(ind_2.fitness < ind->fitness){
 				*ind = ind_2;
 				//printf("Better solution found in optimizer \n");
@@ -64,14 +64,14 @@ Individual device_hill_climbing(Individual ind, curandState* state){
 			if(ind.node[i].flag == CONST){
 				double curr_fit = 0;
 				do{
-					curr_fit = device_equation(ind);
+					curr_fit = device_equation_xy(ind);
 					ind.node[i].value.constant += 1;
-				}while(device_equation(ind) < curr_fit);
+				}while(device_equation_xy(ind) < curr_fit);
 				ind.node[i].value.constant -= 1;
 				do{
-					curr_fit = device_equation(ind);
+					curr_fit = device_equation_xy(ind);
 					ind.node[i].value.constant -= 1;
-				}while(device_equation(ind) < curr_fit);
+				}while(device_equation_xy(ind) < curr_fit);
 				ind.node[i].value.constant += 1;
 			}
 		}

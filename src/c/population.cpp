@@ -11,7 +11,7 @@ Population* create_population(const size_t s, const size_t n){
 				pop->ind[i].node[a] = random_function();
 			}
 			else{
-				pop->ind[i].node[a] = random_terminal();
+				pop->ind[i].node[a] = random_terminal_xy();
 			}
 		}
 	}
@@ -103,7 +103,7 @@ Population* malloc_population(void){
 				pop->ind[i].node[a] = random_function();
 			}
 			else{
-				pop->ind[i].node[a] = random_terminal();
+				pop->ind[i].node[a] = random_terminal_xy();
 			}
 		}
 	}
